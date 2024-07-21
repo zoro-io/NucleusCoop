@@ -132,12 +132,21 @@ var fov = [
   "120"
 ];
 
+var modChoice = [
+  "None",
+  "Reimagined",
+  "Perish",
+  "Kowloon",
+  "Renaissance"
+];
+
 //FPS Cap
 Game.AddOption("FPS Cap", "", "Fps", fpsCap);
+Game.AddOption("Field of View", "", "Fov", fov);
 
 var gameMod = ["No", "Yes"];
 Game.AddOption("Enable game_mod?", "To use this you must game_mod installed in your main install of Black Ops. When the first instance launches BGamer will also launch. Quickly turn on host mode and DON'T do anything else to it. The game should start on it's own.", "gamemod", gameMod);
-
+Game.AddOption("Choose Mod", "(Enables game_mod automatically) The mod that will be loaded when you launch the game. Add the mods you want to use to the modChoice Array and make sure you type in the exact name.", "Mod", modChoice);
 
 
 //FOV Choice
@@ -227,17 +236,40 @@ Game.Play = function() {
     System.IO.File.Copy(savePkgOrigin, savePath, true);
   }
 
+//Assign Mod
+var selectedMod = Context.Options["Mod"];
+
+var addAdditionalModParameter = "";
+  if(selectedMod == "")
+{
+  addAdditionalModParameter = '';
+}
+  else
+{
+  addAdditionalModParameter = ' +set fs_game "mods/' + selectedMod + '"';
+  Context.Options["gamemod"] = "Yes";
+}
+  var cfgDirectory = '"' + Context.GetFolder(Nucleus.Folder.InstancedGameFolder) + '\\players\\mods\\';
+
+  ////////////////////////////////////////
+
   if (Context.Options["gamemod"] == "Yes" && Context.PlayerID == 0) {
     var Bat = Context.GetFolder(Nucleus.Folder.InstancedGameFolder) + "\\BO_Mods.bat";
-    var lines = ["cd bin",
-    "launcher_ldr.exe game_mod.dll ../Server.exe"];
+    var lines = ['rmdir /s /q ' + cfgDirectory,
+      ,
+      'cd bin',
+      'launcher_ldr.exe game_mod.dll ../Server.exe' + addAdditionalModParameter,
+  ];
     Context.WriteTextFile(Bat, lines);
     Context.RunAdditionalFiles ([Context.GetFolder(Nucleus.Folder.InstancedGameFolder) + "\\bgt5launcher.exe"], false, 10);
   }
   else if (Context.Options["gamemod"] == "Yes" && Context.PlayerID != 0) {
     var Bat = Context.GetFolder(Nucleus.Folder.InstancedGameFolder) + "\\BO_Mods.bat";
-    var lines = ["cd bin",
-    'launcher_ldr.exe game_mod.dll ../"BlackOps - Player ' + (Context.PlayerID + 1) + '.exe"'];
+    var lines = ['rmdir /s /q ' + cfgDirectory,
+      ,
+      'cd bin',
+      'launcher_ldr.exe game_mod.dll ../"BlackOps - Player ' + (Context.PlayerID + 1) + '.exe"' + addAdditionalModParameter,
+    ];
     Context.RunAdditionalFiles ([Context.GetFolder(Nucleus.Folder.InstancedGameFolder) + "\\bgt5launcher.exe"], false, 10);
     Context.WriteTextFile(Bat, lines);
   }
@@ -382,6 +414,8 @@ Game.Play = function() {
       Context.FindLineNumberInTextFile(txtPath, "seta gpad_enabled", Nucleus.SearchType.StartsWith) + '|seta gpad_enabled "1"',
       Context.FindLineNumberInTextFile(txtPath, "seta r_shaderWarming", Nucleus.SearchType.StartsWith) + '|seta r_shaderWarming "0"',
       Context.FindLineNumberInTextFile(txtPath, "seta com_maxfps", Nucleus.SearchType.StartsWith) + "|seta com_maxfps \"" + maxFpsChoice + "\"",
+      Context.FindLineNumberInTextFile(txtPath, "seta cg_fov_default", Nucleus.SearchType.StartsWith) + "|seta cg_fov_default \"" + fovChoice + "\"",
+      Context.FindLineNumberInTextFile(txtPath, "seta cg_fov", Nucleus.SearchType.StartsWith) + "|seta cg_fov \"" + fovChoice + "\"",
       Context.FindLineNumberInTextFile(txtPath, "seta r_fullscreen", Nucleus.SearchType.StartsWith) + '|seta r_fullscreen "0"',
       Context.FindLineNumberInTextFile(txtPath, "seta r_displayMode", Nucleus.SearchType.StartsWith) + '|seta r_displayMode "windowed (no border)"'
     ],
