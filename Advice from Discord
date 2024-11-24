@@ -1,0 +1,20 @@
+Someone in the Discord asked for this to be pinned in the channel... I don't know how to pin messages. Thanks @keisaratu
+
+The find match button by the zombies menu after selecting online isn't supposed to be there, at least with the handler to my own knowledge. Private match is only available because it's meant for local/LAN servers within the handler, not online. The find match button is meant to find other online servers in zombies. 
+
+To fix the servers, I pretty much started hostmode (the "Start Hostmode" button in the bgt5 launcher) during the process picker.
+
+To put it simply, here are the steps I took to make sure the servers and clients were able to launch after installing game_mod and the updated bgt5:
+- Launch nucleus co-op under administrator and select your profile preferences, then press play
+- Upon the first game launching alongside the updated bgt5 client, click the "Start Hostmode" button on the top left (It should say "Stop Hostmode" and a green text labeled "activated!" afterwards) 
+- After that, the process picker should pop up, and we both know that you select "Server" and then "BlackOps - Player 2" for the second process picker
+- Let both of the games launch, and it's normal that there is only one bgt5 client; it worked fine as is since it's the only way to have access to the servers in BO1
+- While in game for the both profiles, I selected Zombies>Online>Private Match
+- Player 1's profile should be the main host, as it's assigned to the bgt5 client from earlier. Invite "Player2" through the friendslist by the bottom right under the screen/tab for Player 1, and for Player 2, go through the friendslist for Player 2 to accept the game invite. There is no pop up, but an area by the bottom of the friendslist to accept game invite.
+- Both Player1 and Player2 should be in the same lobby; you can choose whatever maps you have when changing the map and starting the match when ready.
+
+I am using the latest version of the handler provided by zoro: https://github.com/zoro-io/NucleusCoop
+After installing the handler, I downloaded game_mod and the updated bgt5launcher, then replaced the bgt5launcher files with the updated bgt5launcher files within the BGT5Package folders (within the NucleusCo-op\handlers folder) and the content\CallofDutyBlackOpsZM folder (Instance0 and Instance1 folders to be safe, I don't think it makes any difference though). 
+Opening the updated bgt5launcher.exe within the folders mentioned should also give you a new bgset.ini file which helps the launcher do what it needs to.
+
+Someone can honestly correct me and provide you a better alternative, but I'm only helping you with what worked for me. That's pretty much all that I can tell you at the moment because I'm still not sure if updating the bgt5launcher makes a difference.
