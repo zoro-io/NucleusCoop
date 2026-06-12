@@ -22,7 +22,3 @@ You should have two windows at the BO1 start screen. The BO1 menus don't support
 For me this has been Zombies > Online > Find Match > Select Map. This places you in a lobby, and once you've also done it on your second instance you will be able to see each other in the same lobby and can start the game. 
 
 Once in game, if you are unable to move using the controllers, hit the "end" key on the keyboard.
-
-This should allow you to get into a game using the handlers developed by Zoro and Potatato302. If I can get MP working I will produce similar guidance for that.
-
-Credit to @talibanimal for the instructions write up.
